@@ -5,14 +5,14 @@
       "moduleResolution": "node",        // Resolve modules like Node.js does
       "esModuleInterop": true,           // Allow default imports from CommonJS modules
       "outDir": "./dist",
-      "rootDir": "./src",                  // Specify output directory for compiled code
+      "rootDir": "./",                     // Specify output directory for compiled code
       "strict": true,                    // Enable strict type checking
       "skipLibCheck": true,              // Skip library checks to speed up compilation
       "forceConsistentCasingInFileNames": true
     },
     "include": [
       "src/**/*.ts"                      // Only compile TypeScript files in the src folder
-, "src/server.ts"    ],
+, "server.ts"    ],
     "exclude": [
       "node_modules"                     // Exclude node_modules
     ]

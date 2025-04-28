@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import MainLayout from "@/components/layout/MainLayout";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/context/AuthContext"; //  Import the AuthContext to use login function
+import { useAuth } from "@/context/AuthContext"; // Import the AuthContext to use login function
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [form, setForm] = useState({ name: "", username: "", email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const { login } = useAuth(); // reusing login after registration
   const navigate = useNavigate();
 
@@ -35,88 +36,99 @@ const Register = () => {
       alert(error.message);
     }
   };
-  
 
   return (
-      <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
-        <div className="w-full max-w-md border border-gray-200 p-8 rounded-xl shadow-md">
-          <h2 className="text-2xl font-semibold text-teal-700 text-center mb-6">
-            Create Your Account
-          </h2>
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
-              </label>
-              <Input
-                id="name"
-                name="name"
-                type="text"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="e.g. Jane Doe"
-                required
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+      <div className="w-full max-w-md border border-gray-200 p-8 rounded-xl shadow-md">
+        <h2 className="text-2xl font-semibold text-teal-700 text-center mb-6">
+          Create Your Account
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              Full Name
+            </label>
+            <Input
+              id="name"
+              name="name"
+              type="text"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="e.g. Jane Doe"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              Username
+            </label>
+            <Input
+              id="username"
+              name="username"
+              type="text"
+              value={form.username}
+              onChange={handleChange}
+              placeholder="e.g. jane_doe"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email Address
+            </label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <Input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"} // Toggle between text and password type
+              value={form.password}
+              onChange={handleChange}
+              placeholder="Create a secure password"
+              required
+            />
+            <div className="flex items-center mt-2">
+              <input
+                type="checkbox"
+                id="show-password"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)} // Toggle password visibility
+                className="mr-2"
               />
-            </div>
-
-            <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                Username
+              <label htmlFor="show-password" className="text-sm text-gray-600">
+                Show Password
               </label>
-              <Input
-                id="username"
-                name="username"
-                type="text"
-                value={form.username}
-                onChange={handleChange}
-                placeholder="e.g. jane_doe"
-                required
-              />
             </div>
+          </div>
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
-              </label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                required
-              />
-            </div>
+          <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
+            Sign Up
+          </Button>
+        </form>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="Create a secure password"
-                required
-              />
-            </div>
-
-            <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">
-              Sign Up
-            </Button>
-          </form>
-
-          <p className="text-sm text-center text-gray-600 mt-4">
-            Already have an account?{" "}
-            <a href="/signin" className="text-teal-600 font-medium hover:underline">
-              Sign In
-            </a>
-          </p>
-        </div>
+        <p className="text-sm text-center text-gray-600 mt-4">
+          Already have an account?{" "}
+          <a href="/signin" className="text-teal-600 font-medium hover:underline">
+            Sign In
+          </a>
+        </p>
       </div>
+    </div>
   );
 };
 
